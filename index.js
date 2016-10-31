@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 var connectionString = process.env.BONSAI_URL;
 
 var client = new elasticsearch.Client({
-    host: connectionString
+  host: connectionString
 });
 
 app.set('port', port);
@@ -18,7 +18,23 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:searchTerm', (req, res) => {
-  res.send('you are looking for ' + req.params.searchTerm);
+  client.search({
+    index: '_all',
+    type: 'document',
+    body: {
+      query: {
+        query_string:{
+         query: req.params.searchTerm
+        }
+      }
+    }
+  }).then(function (resp) {
+    console.log(resp);
+    res.send(resp);
+  }, function (err) {
+    console.log(err.message);
+    res.send(err.message);
+  });
 });
 
 app.listen(port, () => {
