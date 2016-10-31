@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:searchTerm', (req, res) => {
-  res.send('you are looking for ' + req.params.searchTerms);
+  res.send('you are looking for ' + req.params.searchTerm);
 });
 
 app.listen(port, () => {
