@@ -3,9 +3,40 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
-var connectionString = process.env.BONSAI_URL;
+let connectionString = process.env.BONSAI_URL;
 
-var client = new elasticsearch.Client({
+let searchTerms = [ 'abstaine',
+  'abstinence',
+  'abuse',
+  'alcohol',
+  'alcoholic',
+  'anstie',
+  'anstie’s Limit',
+  'beer',
+  'cider',
+  'cirrhosis of the liver',
+  'craving',
+  'delirium tremens',
+  'dram',
+  'drink',
+  'drinker',
+  'drunkard',
+  'excess',
+  'grocers',
+  'habit',
+  'habitual',
+  'inebriety',
+  'intemperance',
+  'intemperate',
+  'licensed Victuallers',
+  'liquor',
+  'liquor trade',
+  'liver disease',
+  'moderate',
+  'moderation',
+  'nourishing' ];
+
+let client = new elasticsearch.Client({
   host: connectionString
 });
 
@@ -17,9 +48,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/:searchTerm', (req, res) => {
+app.get('/search', (req, res) => {
+
   client.search({
-    q: req.params.searchTerm
+    q: searchTerms.join(',')
   }).then(function (resp) {
     console.log(resp);
     res.send(resp);
