@@ -1,0 +1,46 @@
+body {
+  font-size: 120%;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+.container {
+  width: 90%;
+  margin: 2em auto;
+}
+
+.search-terms  {
+  display: inline;
+  list-style: none;
+  padding: 0;
+}
+
+.search-terms li {
+  display: inline;
+}
+
+.search-terms li:after {
+  content: ", ";
+}
+
+.search-terms li:last-child:after {
+  display: none;
+}
+
+.excerpt {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-height: 3em;
+}
+
+.result {
+  margin-bottom: 1em;
+}
+
+.result h4 {
+  margin-bottom: 0;
+}

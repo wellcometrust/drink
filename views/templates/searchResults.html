@@ -1,0 +1,18 @@
+<h2>Total hits: {{ data.hits.total }}</h2>
+<h3>Searching for:</h3>
+<ul class="search-terms">
+  {{#searchTerms}}
+  <li>{{.}}</li>
+  {{/searchTerms}}
+</ul>
+
+<h2>Hits</h2>
+{{#data.hits.hits}}
+  <div class="result">
+    <h4>{{_source.date}}, {{_source.borough}} ({{_index}})</h4>
+    <p class="excerpt">{{_source.text}}</p>
+  </div>
+{{/data.hits.hits}}
+
+
+

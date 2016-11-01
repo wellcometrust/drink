@@ -42,19 +42,20 @@ let client = new elasticsearch.Client({
 
 app.set('port', port);
 
+app.engine('html', require('hogan-express'));
+app.set('layout', 'layouts/app')
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.get('/search', (req, res) => {
 
   client.search({
     q: searchTerms.join(',')
   }).then(function (resp) {
-    console.log(resp);
-    res.send(resp);
+    console.log(resp.hits.hits[0]);
+    res.render('templates/searchResults', {data: resp, searchTerms: searchTerms});
   }, function (err) {
     console.log(err.message);
     res.send(err.message);
