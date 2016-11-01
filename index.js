@@ -3,9 +3,9 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
-let connectionString = process.env.BONSAI_URL;
+var connectionString = process.env.BONSAI_URL;
 
-let searchTerms = [ 'abstaine',
+var searchTerms = [ 'abstaine',
   'abstinence',
   'abuse',
   'alcohol',
@@ -36,7 +36,7 @@ let searchTerms = [ 'abstaine',
   'moderation',
   'nourishing' ];
 
-let client = new elasticsearch.Client({
+var client = new elasticsearch.Client({
   host: connectionString
 });
 
