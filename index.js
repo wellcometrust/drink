@@ -19,15 +19,7 @@ app.get('/', (req, res) => {
 
 app.get('/:searchTerm', (req, res) => {
   client.search({
-    index: '_all',
-    type: 'document',
-    body: {
-      query: {
-        query_string:{
-         query: req.params.searchTerm
-        }
-      }
-    }
+    q: req.params.searchTerm
   }).then(function (resp) {
     console.log(resp);
     res.send(resp);
