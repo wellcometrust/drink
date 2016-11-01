@@ -9,7 +9,7 @@
 <h2>Hits</h2>
 {{#data.hits.hits}}
   <div class="result">
-    <h4>{{_source.date}}, {{_source.borough}} ({{_index}})</h4>
+    <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a></h4>
     <p class="excerpt">{{_source.text}}</p>
   </div>
 {{/data.hits.hits}}

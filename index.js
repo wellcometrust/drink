@@ -62,6 +62,20 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/document/:documentId', (req, res) => {
+  client.get({
+    index: 'moh',
+    type: '_all',
+    id: req.params.documentId
+  }).then(function (resp) {
+    console.log(resp);
+    res.render('templates/searchResult', {data: resp});
+  }, function (err) {
+    console.log(err.message);
+    res.send(err.message);
+  });
+});
+
 app.listen(port, () => {
   console.log('Example app listening on port ' + port);
 });
