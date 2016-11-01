@@ -52,7 +52,21 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) => {
 
   client.search({
-    q: searchTerms.join(',')
+    body: {
+      query: {
+        match: {
+          "_all": searchTerms.join(',')
+        }
+      },
+      "highlight" : {
+        require_field_match: false,
+        "pre_tags" : ["<b>"],
+        "post_tags" : ["</b>"],
+        "fields" : {
+          "*" : {}
+        }
+      }
+    }
   }).then(function (resp) {
     console.log(resp.hits.hits[0]);
     res.render('templates/searchResults', {data: resp, searchTerms: searchTerms});

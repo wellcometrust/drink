@@ -9,8 +9,10 @@
 <h2>Hits</h2>
 {{#data.hits.hits}}
   <div class="result">
-    <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a></h4>
-    <p class="excerpt">{{_source.text}}</p>
+    <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
+    {{#highlight.text}}
+      <p class="excerpt">...{{{.}}}...</p>
+    {{/highlight.text}}
   </div>
 {{/data.hits.hits}}
 
