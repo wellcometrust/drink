@@ -38,11 +38,10 @@ var getResults = (searchTerms) => {
 
 var fetchResultsFor = (searchTerms, key) => {
   getResults(searchTerms).then((resp) => {
-    console.log(resp);
     results[key] = resp;
     hits = resp.hits.hits;
-    hits = [].concat.apply([], hits);
-    console.log(hits)
+    hits = hits.reduce(function(a,b){return a.concat(b);});
+    console.log('found hits ', hits.map(hit => { return hit._source.id }));
   }, function (err) {
     console.log(err.message);
   });

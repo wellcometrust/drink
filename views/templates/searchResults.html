@@ -23,15 +23,44 @@
   </ul>
 </div>
 
-<h2>Hits</h2>
-{{#hits}}
-  <div class="result">
-    <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
-    {{#highlight.text}}
-      <p class="excerpt">...{{{.}}}...</p>
-    {{/highlight.text}}
-  </div>
-{{/hits}}
+<table>
+  <tr>
+    <td>
+      <h2>All hits</h2>
+      {{#results.all.hits.hits}}
+        <div class="result">
+          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
+          {{#highlight.text}}
+            <p class="excerpt">...{{{.}}}...</p>
+          {{/highlight.text}}
+        </div>
+      {{/results.all.hits.hits}}
+    </td>
 
+    <td>
+      <h2>Neutral hits</h2>
+      {{#results.neutral.hits.hits}}
+        <div class="result">
+          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
+          {{#highlight.text}}
+            <p class="excerpt">...{{{.}}}...</p>
+          {{/highlight.text}}
+        </div>
+      {{/results.neutral.hits.hits}}
+    </td>
+
+    <td>
+      <h2>Critical hits</h2>
+      {{#results.critical.hits.hits}}
+        <div class="result">
+          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
+          {{#highlight.text}}
+            <p class="excerpt">...{{{.}}}...</p>
+          {{/highlight.text}}
+        </div>
+      {{/results.critical.hits.hits}}
+    </td>
+  </tr>
+</table>
 
 
