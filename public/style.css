@@ -7,9 +7,17 @@ p {
   margin-bottom: 1em;
 }
 
+h4 {
+  margin-bottom: 0;
+}
+
 .container {
   width: 90%;
   margin: 2em auto;
+}
+
+.search-term-wrapper {
+  font-size: 80%;
 }
 
 .search-terms  {

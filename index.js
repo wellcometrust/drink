@@ -36,22 +36,24 @@ var getResults = (searchTerms) => {
   });
 };
 
-var fetchResultsFor = (searchTerms, array) => {
+var fetchResultsFor = (searchTerms, key) => {
   getResults(searchTerms).then((resp) => {
     console.log(resp);
-    array = resp;
+    results[key] = resp;
+    hits = resp.hits.hits;
+    hits = [].concat.apply([], hits);
+    console.log(hits)
   }, function (err) {
     console.log(err.message);
   });
 };
 
-var allResults;
-var neutralResults;
-var criticalResults;
+var hits = [];
+var results = { all: null, neutral: null, critical: null };
 
-fetchResultsFor(terms.all, allResults);
-fetchResultsFor(terms.neutral, neutralResults);
-fetchResultsFor(terms.critical, criticalResults);
+fetchResultsFor(terms.all, 'all');
+fetchResultsFor(terms.neutral, 'neutral');
+fetchResultsFor(terms.critical, 'critical');
 
 app.set('port', port);
 
@@ -63,9 +65,8 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-
-  if (results) {
-    res.render('templates/searchResults', {data: results, searchTerms: searchTerms});
+  if (results.all) {
+    res.render('templates/searchResults', {results: results, hits: hits, terms: terms});
   } else {
     res.send('No results yet.');
   }
@@ -76,10 +77,10 @@ app.get('/document/:documentId', (req, res) => {
     index: 'moh',
     type: '_all',
     id: req.params.documentId
-  }).then(function (resp) {
+  }).then((resp) => {
     console.log(resp);
     res.render('templates/searchResult', {data: resp});
-  }, function (err) {
+  }, (err) => {
     console.log(err.message);
     res.send(err.message);
   });
