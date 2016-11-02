@@ -20,8 +20,9 @@ var getResults = (searchTerms) => {
           "must": {
             "match": {
               "_all": {
-                "query":    "alcoholic cirrhosis",
-                "operator": "or"
+                "query":    "alcohol cirrhosis",
+                "operator": "or",
+                "fuzziness": 2
               }
             }
           },

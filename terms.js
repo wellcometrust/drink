@@ -3,7 +3,6 @@ const terms = {
   'abstainers',
   'abstinence',
   'abuse',
-  'alcohol',
   'ale',
   'anstie',
   'beer',
@@ -45,7 +44,6 @@ const terms = {
     'abstainers',
     'abstinence',
     'abuse',
-    'alcoholism',
     'anstie',
     'craving',
     'tremens',
@@ -68,7 +66,6 @@ const terms = {
     'toper'
   ],
   neutral: [
-    'alcohol',
     'ale',
     'beer',
     'brandy',
