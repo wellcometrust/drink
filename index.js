@@ -9,6 +9,12 @@ var client = new elasticsearch.Client({
   host: connectionString
 });
 
+var getDocumentCount = () => {
+  return client.count({
+    index: 'moh'
+  });
+}
+
 // common query together wirh cutoff_frequency and low_freq_operator
 // will select the exact phrases and not any of the common words
 // found elsewhere
@@ -52,21 +58,29 @@ var getResults = (searchTerms) => {
 
 var fetchResultsFor = (searchTerms, key) => {
   getResults(searchTerms).then((resp) => {
+    console.log('found ' + resp.hits.total + ' documents');
     results[key] = resp;
     hits = resp.hits.hits;
     hits = hits.reduce(function(a,b){return a.concat(b);});
-    console.log('found hits ', hits.map(hit => { return hit._source.id }));
-  }, function (err) {
+  }, (err) => {
     console.log(err.message);
   });
 };
 
 var hits = [];
+var documentCount;
 var results = { all: null, neutral: null, critical: null };
 
 fetchResultsFor(terms.all, 'all');
 fetchResultsFor(terms.neutral, 'neutral');
 fetchResultsFor(terms.critical, 'critical');
+
+getDocumentCount().then(resp => {
+  documentCount = resp.count;
+  console.log('total document count: ', resp.count);
+}, (err) => {
+  console.log(err.message);
+});
 
 app.set('port', port);
 
@@ -79,7 +93,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   if (results.all) {
-    res.render('templates/searchResults', {results: results, hits: hits, terms: terms});
+    res.render('templates/searchResults', {results: results, hits: hits, terms: terms, documentCount: documentCount});
   } else {
     res.send('No results yet.');
   }

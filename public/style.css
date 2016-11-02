@@ -7,6 +7,14 @@ p {
   margin-bottom: 1em;
 }
 
+h1 {
+  margin-bottom: 0;
+}
+
+h2 {
+  margin-top: 0;
+}
+
 h4 {
   margin-bottom: 0;
 }
