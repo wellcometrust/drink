@@ -4,7 +4,7 @@ An app that seraches through the ingested data for instances of alcohol related 
 
 ## Installation
 
-You will need to have [Node.js](https://nodejs.org/en/) installed, and a [Heroku](https://heroku.com) app created. Add the [Bonsai add-on](https://elements.heroku.com/addons/bonsai) to your Heroku app — Bonsai powers the searches using elasticsearch.
+You will need to have [Node.js](https://nodejs.org/en/) installed, and a [Heroku](https://heroku.com) app created. Add the [Bonsai add-on](https://elements.heroku.com/addons/bonsai) to your Heroku app — Bonsai powers the searches using [elasticsearch](https://www.elastic.co/products/elasticsearch).
 
 Clone the repository and run `npm install`. 
 
