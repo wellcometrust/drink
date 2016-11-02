@@ -48,6 +48,7 @@ const terms = {
     'abstinence',
     'abuse',
     'alcoholic',
+    'alcoholism',
     'anstie',
     'cirrhosis ',
     'craving',
