@@ -2,6 +2,7 @@ const elasticsearch = require('elasticsearch');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
+const terms = require('./terms.js').terms;
 
 var connectionString = process.env.BONSAI_URL;
 var client = new elasticsearch.Client({
@@ -9,37 +10,6 @@ var client = new elasticsearch.Client({
 });
 
 var results;
-var searchTerms = [ 'abstaine',
-  'abstinence',
-  'abuse',
-  'alcohol',
-  'alcoholic',
-  'anstie',
-  'anstie’s Limit',
-  'beer',
-  'cider',
-  'cirrhosis of the liver',
-  'craving',
-  'delirium tremens',
-  'dram',
-  'drink',
-  'drinker',
-  'drunkard',
-  'excess',
-  'grocers',
-  'habit',
-  'habitual',
-  'inebriety',
-  'intemperance',
-  'intemperate',
-  'licensed Victuallers',
-  'liquor',
-  'liquor trade',
-  'liver disease',
-  'moderate',
-  'moderation',
-  'nourishing'
-];
 
 // common query together wirh cutoff_frequency and low_freq_operator
 // will select the exact phrases and not any of the common words
@@ -50,7 +20,7 @@ var getResults = () => {
       query: {
         common: {
           "_all": {
-            query: searchTerms.join(','),
+            query: terms.all.join(','),
             "cutoff_frequency": 0.001,
             "low_freq_operator": "or"
           }
