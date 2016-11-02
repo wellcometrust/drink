@@ -1,32 +1,36 @@
 <h2>Total hits {{ results.all.hits.total }}, neutral: {{ results.neutral.hits.total }}, critical: {{ results.critical.hits.total }}</h2>
-<div class="search-term-wrapper">
-  <h3>Searching for:</h3>
-  <h4>All</h4>
-  <ul class="search-terms">
-    {{#terms.all}}
-      <li>{{.}}</li>
-    {{/terms.all}}
-  </ul>
-
-  <h4>Neutral</h4>
-  <ul class="search-terms">
-    {{#terms.neutral}}
-      <li>{{.}}</li>
-    {{/terms.neutral}}
-  </ul>
-
-  <h4>Critical</h4>
-  <ul class="search-terms">
-    {{#terms.critical}}
-      <li>{{.}}</li>
-    {{/terms.critical}}
-  </ul>
-</div>
 
 <table>
   <tr>
+    <td><h2>All</h2></td>
+    <td><h2>Neutral</h2></td>
+    <td><h2>Critical</h2></td>
+  </tr>
+  <tr>
     <td>
-      <h2>All hits</h2>
+      <ul class="search-terms">
+        {{#terms.all}}
+          <li>{{.}}</li>
+        {{/terms.all}}
+      </ul>
+    </td>
+    <td>
+      <ul class="search-terms">
+        {{#terms.neutral}}
+          <li>{{.}}</li>
+        {{/terms.neutral}}
+      </ul>
+    </td>
+    <td>
+      <ul class="search-terms">
+        {{#terms.critical}}
+          <li>{{.}}</li>
+        {{/terms.critical}}
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>
       {{#results.all.hits.hits}}
         <div class="result">
           <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
@@ -38,7 +42,6 @@
     </td>
 
     <td>
-      <h2>Neutral hits</h2>
       {{#results.neutral.hits.hits}}
         <div class="result">
           <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
@@ -50,7 +53,6 @@
     </td>
 
     <td>
-      <h2>Critical hits</h2>
       {{#results.critical.hits.hits}}
         <div class="result">
           <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>

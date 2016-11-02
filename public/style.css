@@ -32,6 +32,7 @@ td {
   display: inline;
   list-style: none;
   padding: 0;
+  font-size: 80%;
 }
 
 .search-terms li {
