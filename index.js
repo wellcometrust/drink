@@ -26,9 +26,9 @@ var getResults = (searchTerms) => {
           "must": {
             "match": {
               "_all": {
-                "query":    "alcohol cirrhosis",
+                "query":    "alcohol cirrhosis beer port sherry ale brandy cider whisky whiskey rum wine",
                 "operator": "or",
-                "fuzziness": 2
+                "fuzziness": 0.5
               }
             }
           },
