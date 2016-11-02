@@ -33,7 +33,7 @@
     <td>
       {{#results.all.hits.hits}}
         <div class="result">
-          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
+          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches | Score {{ _score }}</h4>
           {{#highlight.text}}
             <p class="excerpt">...{{{.}}}...</p>
           {{/highlight.text}}
@@ -44,7 +44,7 @@
     <td>
       {{#results.neutral.hits.hits}}
         <div class="result">
-          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
+          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches | Score {{ _score }}</h4>
           {{#highlight.text}}
             <p class="excerpt">...{{{.}}}...</p>
           {{/highlight.text}}
@@ -55,7 +55,7 @@
     <td>
       {{#results.critical.hits.hits}}
         <div class="result">
-          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches</h4>
+          <h4>{{_source.date}}, {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches | Score {{ _score }}</h4>
           {{#highlight.text}}
             <p class="excerpt">...{{{.}}}...</p>
           {{/highlight.text}}
