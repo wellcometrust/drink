@@ -4,7 +4,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 var connectionString = process.env.BONSAI_URL;
+var client = new elasticsearch.Client({
+  host: connectionString
+});
 
+var results;
 var searchTerms = [ 'abstaine',
   'abstinence',
   'abuse',
@@ -34,10 +38,41 @@ var searchTerms = [ 'abstaine',
   'liver disease',
   'moderate',
   'moderation',
-  'nourishing' ];
+  'nourishing'
+];
 
-var client = new elasticsearch.Client({
-  host: connectionString
+// common query together wirh cutoff_frequency and low_freq_operator
+// will select the exact phrases and not any of the common words
+// found elsewhere
+var getResults = () => {
+  return client.search({
+    body: {
+      query: {
+        common: {
+          "_all": {
+            query: searchTerms.join(','),
+            "cutoff_frequency": 0.001,
+            "low_freq_operator": "or"
+          }
+        }
+      },
+      "highlight" : {
+        require_field_match: false,
+        "pre_tags" : ["<b>"],
+        "post_tags" : ["</b>"],
+        "fields" : {
+          "*" : {}
+        }
+      }
+    }
+  });
+};
+
+getResults().then((resp) => {
+  console.log(resp)
+  results = resp;
+}, function (err) {
+  console.log(err.message);
 });
 
 app.set('port', port);
@@ -51,37 +86,11 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
 
-  // common query together wirh cutoff_frequency and low_freq_operator
-  // will select the exact phrases and not any of the common words
-  // found elsewhere
-
-  client.search({
-    body: {
-      query: {
-        common: {
-          "_all": {
-            query: searchTerms.join(','),
-            "cutoff_frequency": 0.001,
-            "low_freq_operator": "and"
-          }
-        }
-      },
-      "highlight" : {
-        require_field_match: false,
-        "pre_tags" : ["<b>"],
-        "post_tags" : ["</b>"],
-        "fields" : {
-          "*" : {}
-        }
-      }
-    }
-  }).then(function (resp) {
-    console.log(resp.hits.hits[0]);
-    res.render('templates/searchResults', {data: resp, searchTerms: searchTerms});
-  }, function (err) {
-    console.log(err.message);
-    res.send(err.message);
-  });
+  if (results) {
+    res.render('templates/searchResults', {data: results, searchTerms: searchTerms});
+  } else {
+    res.send('No results yet.');
+  }
 });
 
 app.get('/document/:documentId', (req, res) => {
