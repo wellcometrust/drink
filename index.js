@@ -16,12 +16,25 @@ var getResults = (searchTerms) => {
   return client.search({
     body: {
       query: {
-        common: {
-          "_all": {
-            query: searchTerms.join(','),
-            "cutoff_frequency": 0.001,
-            "low_freq_operator": "or"
-          }
+        bool: {
+          "must": {
+            "match": {
+              "_all": {
+                "query":    "alcoholic cirrhosis",
+                "operator": "or"
+              }
+            }
+          },
+
+          "should": [
+            {
+              "match": {
+                "_all": {
+                  "query": searchTerms.join(',')
+                }
+              }
+            }
+          ]
         }
       },
       "highlight" : {
