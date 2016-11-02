@@ -51,11 +51,19 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
 
+  // common query together wirh cutoff_frequency and low_freq_operator
+  // will select the exact phrases and not any of the common words
+  // found elsewhere
+
   client.search({
     body: {
       query: {
-        match: {
-          "_all": searchTerms.join(',')
+        common: {
+          "_all": {
+            query: searchTerms.join(','),
+            "cutoff_frequency": 0.001,
+            "low_freq_operator": "and"
+          }
         }
       },
       "highlight" : {
