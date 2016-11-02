@@ -9,18 +9,16 @@ var client = new elasticsearch.Client({
   host: connectionString
 });
 
-var results;
-
 // common query together wirh cutoff_frequency and low_freq_operator
 // will select the exact phrases and not any of the common words
 // found elsewhere
-var getResults = () => {
+var getResults = (searchTerms) => {
   return client.search({
     body: {
       query: {
         common: {
           "_all": {
-            query: terms.all.join(','),
+            query: searchTerms.join(','),
             "cutoff_frequency": 0.001,
             "low_freq_operator": "or"
           }
@@ -38,12 +36,22 @@ var getResults = () => {
   });
 };
 
-getResults().then((resp) => {
-  console.log(resp)
-  results = resp;
-}, function (err) {
-  console.log(err.message);
-});
+var fetchResultsFor = (searchTerms, array) => {
+  getResults(searchTerms).then((resp) => {
+    console.log(resp);
+    array = resp;
+  }, function (err) {
+    console.log(err.message);
+  });
+};
+
+var allResults;
+var neutralResults;
+var criticalResults;
+
+fetchResultsFor(terms.all, allResults);
+fetchResultsFor(terms.neutral, neutralResults);
+fetchResultsFor(terms.critical, criticalResults);
 
 app.set('port', port);
 
