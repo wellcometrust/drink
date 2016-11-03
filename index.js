@@ -7,7 +7,8 @@ const sleep = require('sleep');
 
 var connectionString = process.env.BONSAI_URL;
 var client = new elasticsearch.Client({
-  host: connectionString
+  host: connectionString,
+  requestTimeout: 600000
 });
 
 var getDocumentCount = () => {
