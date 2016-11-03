@@ -26,6 +26,7 @@ String.prototype.capitalize = () => {
 var getResults = (searchTerms) => {
   return client.search({
     body: {
+      size: 30,
       query: {
         bool: {
           "must": {
