@@ -32,7 +32,7 @@ var getResults = (searchTerms) => {
           "must": {
             "match": {
               "_all": {
-                "query":    "alcohol cirrhosis beer port sherry ale brandy cider whisky whiskey rum wine",
+                "query":    "alcohol cirrhosis",
                 "operator": "or",
                 "fuzziness": 0.5
               }
