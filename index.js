@@ -104,7 +104,7 @@ app.get('/', (req, res) => {
 
 app.get('/document/:documentId', (req, res) => {
   client.get({
-    index: 'moh',
+    index: '_all',
     type: '_all',
     id: req.params.documentId
   }).then((resp) => {
