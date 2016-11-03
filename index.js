@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const terms = require('./terms.js').terms;
+const sleep = require('sleep');
 
 var connectionString = process.env.BONSAI_URL;
 var client = new elasticsearch.Client({
@@ -11,7 +12,7 @@ var client = new elasticsearch.Client({
 
 var getDocumentCount = () => {
   return client.count({
-    index: 'moh'
+    index: '_all'
   });
 }
 
@@ -72,7 +73,9 @@ var documentCount;
 var results = { all: null, neutral: null, critical: null };
 
 fetchResultsFor(terms.all, 'all');
+sleep.sleep(1);
 fetchResultsFor(terms.neutral, 'neutral');
+sleep.sleep(1);
 fetchResultsFor(terms.critical, 'critical');
 
 getDocumentCount().then(resp => {
