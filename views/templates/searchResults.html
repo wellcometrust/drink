@@ -31,34 +31,19 @@
   <tr>
     <td>
       {{#results.all.hits.hits}}
-        <div class="result">
-          <h4><a href="http://search.wellcomelibrary.org/iii/encore/search?target={{_source.id}}&submit=Search">{{_source.id}}</a> {{#_source.date}}{{_source.date}},{{/_source.date}} {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches | Score {{ _score }}</h4>
-          {{#highlight.text}}
-            <p class="excerpt">...{{{.}}}...</p>
-          {{/highlight.text}}
-        </div>
+        {{> hit}}
       {{/results.all.hits.hits}}
     </td>
 
     <td>
       {{#results.neutral.hits.hits}}
-        <div class="result">
-          <h4><a href="http://search.wellcomelibrary.org/iii/encore/search?target={{_source.id}}&submit=Search">{{_source.id}}</a> {{#_source.date}}{{_source.date}},{{/_source.date}} {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches | Score {{ _score }}</h4>
-          {{#highlight.text}}
-            <p class="excerpt">...{{{.}}}...</p>
-          {{/highlight.text}}
-        </div>
+        {{> hit}}
       {{/results.neutral.hits.hits}}
     </td>
 
     <td>
       {{#results.critical.hits.hits}}
-        <div class="result">
-          <h4><a href="http://search.wellcomelibrary.org/iii/encore/search?target={{_source.id}}&submit=Search">{{_source.id}}</a> {{#_source.date}}{{_source.date}},{{/_source.date}} {{_source.borough}} ({{_index}}) | <a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches | Score {{ _score }}</h4>
-          {{#highlight.text}}
-            <p class="excerpt">...{{{.}}}...</p>
-          {{/highlight.text}}
-        </div>
+        {{> hit}}
       {{/results.critical.hits.hits}}
     </td>
   </tr>

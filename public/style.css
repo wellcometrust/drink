@@ -68,3 +68,21 @@ td {
 .result h4 {
   margin-bottom: 1em;
 }
+
+.moh {
+  background: coral;
+  color: white;
+  padding: 0.2em;
+}
+
+.cookbooks {
+  background: dodgerblue;
+  color: white;
+  padding: 0.2em;
+}
+
+.insurance {
+  background: olive;
+  color: white;
+  padding: 0.2em;
+}

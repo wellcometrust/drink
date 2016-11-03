@@ -1,0 +1,7 @@
+<div class="result">
+  <h4><a href="http://search.wellcomelibrary.org/iii/encore/search?target={{_source.id}}&submit=Search">{{_source.id}}</a> {{#_source.date}}{{_source.date}},{{/_source.date}} {{_source.borough}} <span class="{{_index}}">{{_index}}</span><br><a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches inisde this doc | Score {{ _score }}</h4>
+  {{#highlight.text}}
+    <p class="excerpt">...{{{.}}}...</p>
+  {{/highlight.text}}
+</div>
+
