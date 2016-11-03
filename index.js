@@ -27,8 +27,7 @@ String.prototype.capitalize = () => {
 var getResults = (searchTerms) => {
   return client.search({
     body: {
-      from: 0,
-      size: 30,
+      size: 50,
       query: {
         bool: {
           "must": {
@@ -80,9 +79,9 @@ var documentCount;
 var results = { all: null, neutral: null, critical: null };
 
 fetchResultsFor(terms.all, 'all');
-sleep.sleep(1);
+sleep.sleep(2);
 fetchResultsFor(terms.neutral, 'neutral');
-sleep.sleep(1);
+sleep.sleep(2);
 fetchResultsFor(terms.critical, 'critical');
 
 getDocumentCount().then(resp => {
