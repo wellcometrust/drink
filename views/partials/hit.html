@@ -1,5 +1,5 @@
 <div class="result">
-  <h4><a href="http://wellcomelibrary.org/item/{{_source.id}}">{{_source.id}}</a> {{#_source.date}}{{_source.date}},{{/_source.date}} {{_source.borough}} <span class="{{_index}}">{{_index}}</span><br><a href="/document/{{_id}}">Link</a> | {{highlight.text.length}} matches inisde this doc | Score {{ _score }}</h4>
+  <h4><a href="http://wellcomelibrary.org/item/{{_source.id}}">{{_source.id}}</a> {{#_source.date}}{{_source.date}},{{/_source.date}} {{_source.borough}} <span class="{{_index}}">{{_index}}</span><br>{{highlight.text.length}} matches inisde this doc | Score {{ _score }}</h4>
   {{#highlight.text}}
     <p class="excerpt">...{{{.}}}...</p>
   {{/highlight.text}}
