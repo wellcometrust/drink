@@ -21,10 +21,12 @@ h4 {
 
 table {
   width: 100%;
+  border-spacing: 1em;
 }
 
 td {
   vertical-align: top;
+  width: 33%;
 }
 
 .container {
@@ -56,9 +58,15 @@ td {
 }
 
 .excerpt {
-  opacity: 0.85;
-  font-size: 90%;
+  opacity: 0.9;
+  font-size: 80%;
   margin-bottom: 0;
+}
+
+b {
+  background-color: khaki;
+  font-weight: normal;
+  padding: 0.1em;
 }
 
 .result {
@@ -85,4 +93,8 @@ td {
   background: olive;
   color: white;
   padding: 0.2em;
+}
+
+p {
+  font-family: Georgia, serif;
 }
