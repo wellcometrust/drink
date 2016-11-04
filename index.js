@@ -4,14 +4,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const terms = require('./terms.js').terms;
 
-var connectionString = process.env.BONSAI_URL;
-var client = new elasticsearch.Client({
-  host: connectionString,
-  requestTimeout: 600000
-});
+const searchClient = require('./lib/search.js');
 
 var getDocumentCount = () => {
-  return client.count({
+  return searchClient.count({
     index: '_all'
   });
 }
@@ -24,7 +20,7 @@ String.prototype.capitalize = () => {
 // will select the exact phrases and not any of the common words
 // found elsewhere
 var getResults = (searchTerms) => {
-  return client.search({
+  return searchClient.search({
     body: {
       size: 15,
       query: {
