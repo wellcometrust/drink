@@ -62,7 +62,7 @@ app.get('/:searchTerm', (req, res) => {
 app.get('/:searchTerm/:source', (req, res) => {
   SearchResult.findOne({ where: { queryTerms: req.params.searchTerm + '-' + req.params.source } }).then(result => {
     if (result) {
-      res.render('templates/singleResultFor', { result: result, req: req, source: req.params.source });
+      res.render('templates/singleResultFor', { result: result, req: req, source: req.params.source, total: stats[req.params.source] });
     } else {
       res.send('Sorry, not found.');
       fetchSingleResultFor(req.params.searchTerm, req.params.source).then(resp => {
