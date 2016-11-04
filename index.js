@@ -18,16 +18,32 @@ app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + '/public'));
 
-fetchDocumentCount();
+var searchResults = { all: null, neutral: null, medical: null };
+var documentCount = fetchDocumentCount();
+
 fetchTermsResults();
 
+SearchMetadata.findOne({ where: { name: 'documentCount' } }).then(count => {
+  documentCount = count;
+});
+
+SearchResult.findOne({ where: { queryTerms: 'all' } }).then(results => {
+  searchResults.all = results;
+});
+
+SearchResult.findOne({ where: { queryTerms: 'neutral' } }).then(results => {
+  searchResults.neutral = results;
+});
+
+SearchResult.findOne({ where: { queryTerms: 'medical' } }).then(results => {
+  searchResults.medical = results;
+});
+
 app.get('/', (req, res) => {
-  // TODO
-  // fetch the results from the database instead
-  if (results.all || results.neutral || results.critical) {
-      res.render('templates/searchResults', {results: results, hits: hits, terms: terms, documentCount: documentCount});
+  if (searchResults) {
+    res.render('templates/searchResults', { searchResults: searchResults, terms: terms, documentCount: documentCount });
   } else {
-    res.send('No results yet.');
+    res.send('Cannot find any results.');
   }
 });
 

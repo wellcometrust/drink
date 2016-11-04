@@ -1,9 +1,9 @@
-<h1>Alcohol and health</h1><h2>{{ documentCount }} documents searchable, showing 15 top results</h2>
+<h1>Alcohol and health</h1><h2>{{ documentCount.dataValues.content }} documents searchable, showing 15 top results</h2>
 <table>
   <tr>
-    <td><h2>All ({{ results.all.hits.total }})</h2></td>
-    <td><h2>Neutral ({{ results.neutral.hits.total }})</h2></td>
-    <td><h2>Medical ({{ results.critical.hits.total }})</h2></td>
+    <td><h4>All ({{ searchResults.all.dataValues.result.hits.total }})</h4></td>
+    <td><h4>Neutral ({{ searchResults.neutral.dataValues.result.hits.total }})</h4></td>
+    <td><h4>Medical ({{ searchResults.medical.dataValues.result.hits.total }})</h4></td>
   </tr>
   <tr>
     <td>
@@ -22,29 +22,29 @@
     </td>
     <td>
       <ul class="search-terms">
-        {{#terms.critical}}
+        {{#terms.medical}}
           <li>{{.}}</li>
-        {{/terms.critical}}
+        {{/terms.medical}}
       </ul>
     </td>
   </tr>
   <tr>
     <td>
-      {{#results.all.hits.hits}}
+      {{#searchResults.all.dataValues.result.hits.hits}}
         {{> hit}}
-      {{/results.all.hits.hits}}
+      {{/searchResults.all.dataValues.result.hits.hits}}
     </td>
 
     <td>
-      {{#results.neutral.hits.hits}}
+      {{#searchResults.neutral.dataValues.result.hits.hits}}
         {{> hit}}
-      {{/results.neutral.hits.hits}}
+      {{/searchResults.neutral.dataValues.result.hits.hits}}
     </td>
 
     <td>
-      {{#results.critical.hits.hits}}
+      {{#searchResults.medical.dataValues.result.hits.hits}}
         {{> hit}}
-      {{/results.critical.hits.hits}}
+      {{/searchResults.medical.dataValues.result.hits.hits}}
     </td>
   </tr>
 </table>

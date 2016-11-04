@@ -37,7 +37,7 @@ const terms = {
     'whisky',
     'wine'
   ],
-  critical:  [
+  medical:  [
     'abstainers',
     'abstinence',
     'abuse',
