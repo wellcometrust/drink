@@ -1,10 +1,12 @@
+const Sequelize = require('sequelize');
 const elasticsearch = require('elasticsearch');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const terms = require('./terms.js').terms;
-
 const searchClient = require('./lib/search.js');
+const db = require('./lib/db.js').db;
+const SearchResult = require('./lib/db.js').SearchResult;
 
 var getDocumentCount = () => {
   return searchClient.count({
@@ -61,15 +63,36 @@ var documentCount;
 var results = { all: null, neutral: null, critical: null };
 
 getResults(terms.all).then(resp => {
-  console.log(typeof resp)
+  if (resp) {
+    SearchResult.sync().then(() => {
+      return SearchResult.create({
+        queryTerms: 'all',
+        result: resp
+      });
+    });
+  }
   results.all = resp;
   return getResults(terms.neutral);
 }).then(resp => {
-  console.log(resp)
+  if (resp) {
+    SearchResult.sync().then(() => {
+      return SearchResult.create({
+        queryTerms: 'neutral',
+        result: resp
+      });
+    });
+  }
   results.neutral = resp;
   return getResults(terms.critical);
 }).then(resp => {
-  console.log(resp)
+  if (resp) {
+    SearchResult.sync().then(() => {
+      return SearchResult.create({
+        queryTerms: 'medical',
+        result: resp
+      });
+    });
+  }
   results.critical = resp;
 }).catch(err => {
   console.log(err.message);
