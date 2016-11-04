@@ -9,21 +9,21 @@
     <td>
       <ul class="search-terms">
         {{#terms.all}}
-          <li>{{.}}</li>
+          <li><a href="/{{.}}">{{.}}</a></li>
         {{/terms.all}}
       </ul>
     </td>
     <td>
       <ul class="search-terms">
         {{#terms.neutral}}
-          <li>{{.}}</li>
+          <li><a href="/{{.}}">{{.}}</a></li>
         {{/terms.neutral}}
       </ul>
     </td>
     <td>
       <ul class="search-terms">
         {{#terms.medical}}
-          <li>{{.}}</li>
+          <li><a href="/{{.}}">{{.}}</a></li>
         {{/terms.medical}}
       </ul>
     </td>

@@ -8,6 +8,7 @@ const SearchResult = require('./lib/db.js').SearchResult;
 const SearchMetadata = require('./lib/db.js').SearchMetadata;
 const fetchDocumentCount = require('./lib/fetch_searches.js').fetchDocumentCount;
 const fetchTermsResults = require('./lib/fetch_searches.js').fetchTermsResults;
+const fetchSingleResult = require('./lib/fetch_searches.js').fetchSingleResult;
 
 app.set('port', port);
 app.engine('html', require('hogan-express'));
@@ -45,6 +46,19 @@ app.get('/', (req, res) => {
   } else {
     res.send('Cannot find any results.');
   }
+});
+
+app.get('/:searchTerm', (req, res) => {
+  SearchResult.findOne({ where: { queryTerms: req.params.searchTerm } }).then(result => {
+    if (result) {
+      res.render('templates/singleResult', { result: result });
+    } else {
+      res.send('Sorry, not found.');
+      fetchSingleResult(req.params.searchTerm).then(resp => {
+        console.log(resp);
+      })
+    }
+  });
 });
 
 app.listen(port, () => {
