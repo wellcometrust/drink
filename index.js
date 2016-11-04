@@ -49,7 +49,7 @@ app.get('/', (req, res) => {
 app.get('/:searchTerm', (req, res) => {
   SearchResult.findOne({ where: { queryTerms: req.params.searchTerm } }).then(result => {
     if (result) {
-      res.render('templates/singleResult', { result: result, req: req });
+      res.render('templates/singleResult', { result: result, req: req, stats: stats });
     } else {
       res.send('Sorry, not found.');
       fetchSingleResult(req.params.searchTerm).then(resp => {
