@@ -1,7 +1,10 @@
 <div class="result">
-  <h4><span class="{{_index}}">{{_index}}</span> <a href="http://wellcomelibrary.org/item/{{_source.id}}">{{_source.id}}</a> {{#_source.date}}{{_source.date}},{{/_source.date}} {{_source.borough}} <h3>Showing {{highlight.text.length}} matches<br>Relevance score {{ _score }}</h3>
-  {{#highlight.text}}
-    <p class="excerpt">...{{{.}}}...</p>
-  {{/highlight.text}}
+  <h4><span class="{{_index}}">{{_index}}</span> <a href="http://wellcomelibrary.org/item/{{_source.id}}">{{_source.id}}</a> {{#_source.date}}{{_source.date}},{{/_source.date}} {{_source.borough}}
+  {{#highlight}}
+    <h3>Showing {{highlight.text.length}} matches<br>Relevance score {{ _score }}</h3>
+    {{#highlight.text}}
+      <p class="excerpt">...{{{.}}}...</p>
+    {{/highlight.text}}
+  {{/highlight}}
 </div>
 

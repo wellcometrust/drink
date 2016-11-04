@@ -1,0 +1,12 @@
+<h1>Showing hits for {{ req.params.searchTerm }} within {{ source }}, top results</h2>
+<table>
+  <tr>
+    <td>
+      {{#result.dataValues.result.hits.hits}}
+        {{> hit}}
+      {{/result.dataValues.result.hits.hits}}
+    </td>
+  </tr>
+</table>
+
+

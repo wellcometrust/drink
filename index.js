@@ -9,6 +9,7 @@ const SearchMetadata = require('./lib/db.js').SearchMetadata;
 const fetchDocumentCount = require('./lib/fetch_searches.js').fetchDocumentCount;
 const fetchTermsResults = require('./lib/fetch_searches.js').fetchTermsResults;
 const fetchSingleResult = require('./lib/fetch_searches.js').fetchSingleResult;
+const fetchSingleResultFor = require('./lib/fetch_searches.js').fetchSingleResultFor;
 
 app.set('port', port);
 app.engine('html', require('hogan-express'));
@@ -19,14 +20,11 @@ app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + '/public'));
 
+var stats = { total: 2562, moh: 2232, cookbooks: 322, insurance: 8 };
 var searchResults = { all: null, neutral: null, medical: null };
 var documentCount = fetchDocumentCount();
 
 fetchTermsResults();
-
-SearchMetadata.findOne({ where: { name: 'documentCount' } }).then(count => {
-  documentCount = count;
-});
 
 SearchResult.findOne({ where: { queryTerms: 'all' } }).then(results => {
   searchResults.all = results;
@@ -42,7 +40,7 @@ SearchResult.findOne({ where: { queryTerms: 'medical' } }).then(results => {
 
 app.get('/', (req, res) => {
   if (searchResults) {
-    res.render('templates/searchResults', { searchResults: searchResults, terms: terms, documentCount: documentCount });
+    res.render('templates/searchResults', { searchResults: searchResults, terms: terms, documentCount: stats.total });
   } else {
     res.send('Cannot find any results.');
   }
@@ -51,10 +49,23 @@ app.get('/', (req, res) => {
 app.get('/:searchTerm', (req, res) => {
   SearchResult.findOne({ where: { queryTerms: req.params.searchTerm } }).then(result => {
     if (result) {
-      res.render('templates/singleResult', { result: result });
+      res.render('templates/singleResult', { result: result, req: req });
     } else {
       res.send('Sorry, not found.');
       fetchSingleResult(req.params.searchTerm).then(resp => {
+        console.log(resp);
+      })
+    }
+  });
+});
+
+app.get('/:searchTerm/:source', (req, res) => {
+  SearchResult.findOne({ where: { queryTerms: req.params.searchTerm + '-' + req.params.source } }).then(result => {
+    if (result) {
+      res.render('templates/singleResultFor', { result: result, req: req, source: req.params.source });
+    } else {
+      res.send('Sorry, not found.');
+      fetchSingleResultFor(req.params.searchTerm, req.params.source).then(resp => {
         console.log(resp);
       })
     }
