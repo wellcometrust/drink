@@ -2,6 +2,10 @@ body {
   font-size: 120%;
 }
 
+a {
+  color: black;
+}
+
 p {
   margin: 0;
   margin-bottom: 1em;
@@ -19,6 +23,12 @@ h4 {
   margin-bottom: 0;
 }
 
+h3 {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
 table {
   width: 100%;
   border-spacing: 1em;
@@ -27,6 +37,12 @@ table {
 td {
   vertical-align: top;
   width: 33%;
+}
+
+b {
+  background-color: khaki;
+  font-weight: normal;
+  padding: 0.1em;
 }
 
 .container {
@@ -63,36 +79,31 @@ td {
   margin-bottom: 0;
 }
 
-b {
-  background-color: khaki;
-  font-weight: normal;
-  padding: 0.1em;
-}
-
 .result {
-  margin-bottom: 1em;
-}
-
-.result h4 {
-  margin-bottom: 1em;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  margin-top: 1em;
+  margin-bottom: 1.5em;
 }
 
 .moh {
   background: coral;
   color: white;
   padding: 0.2em;
+  -webkit-font-smoothing: antialiased;
 }
 
 .cookbooks {
   background: dodgerblue;
   color: white;
   padding: 0.2em;
+  -webkit-font-smoothing: antialiased;
 }
 
 .insurance {
   background: olive;
   color: white;
   padding: 0.2em;
+  -webkit-font-smoothing: antialiased;
 }
 
 p {
