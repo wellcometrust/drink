@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const terms = require('./terms.js').terms;
-const sleep = require('sleep');
 
 var connectionString = process.env.BONSAI_URL;
 var client = new elasticsearch.Client({
@@ -27,7 +26,7 @@ String.prototype.capitalize = () => {
 var getResults = (searchTerms) => {
   return client.search({
     body: {
-      size: 50,
+      size: 15,
       query: {
         bool: {
           "must": {
@@ -52,6 +51,8 @@ var getResults = (searchTerms) => {
         }
       },
       "highlight" : {
+        "order": "score",
+        "number_of_fragments": 7,
         require_field_match: false,
         "pre_tags" : ["<b>"],
         "post_tags" : ["</b>"],
@@ -63,26 +64,25 @@ var getResults = (searchTerms) => {
   });
 };
 
-var fetchResultsFor = (searchTerms, key) => {
-  getResults(searchTerms).then((resp) => {
-    console.log('found ' + resp.hits.total + ' documents');
-    results[key] = resp;
-    hits = resp.hits.hits;
-    hits = hits.reduce(function(a,b){return a.concat(b);});
-  }, (err) => {
-    console.log(err.message);
-  });
-};
-
 var hits = [];
 var documentCount;
 var results = { all: null, neutral: null, critical: null };
 
-fetchResultsFor(terms.all, 'all');
-sleep.sleep(2);
-fetchResultsFor(terms.neutral, 'neutral');
-sleep.sleep(2);
-fetchResultsFor(terms.critical, 'critical');
+getResults(terms.all).then(resp => {
+  console.log(typeof resp)
+  results.all = resp;
+  return getResults(terms.neutral);
+}).then(resp => {
+  console.log(resp)
+  results.neutral = resp;
+  return getResults(terms.critical);
+}).then(resp => {
+  console.log(resp)
+  results.critical = resp;
+}).catch(err => {
+  console.log(err.message);
+  console.log(err.stack);
+});
 
 getDocumentCount().then(resp => {
   documentCount = resp.count;
