@@ -12,10 +12,6 @@ var getDocumentCount = () => {
   });
 }
 
-String.prototype.capitalize = () => {
-  return this.charAt(0).toUpperCase() + this.slice(1);
-}
-
 // common query together wirh cutoff_frequency and low_freq_operator
 // will select the exact phrases and not any of the common words
 // found elsewhere
